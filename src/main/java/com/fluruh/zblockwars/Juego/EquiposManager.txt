@@ -1,4 +1,0 @@
-package com.fluruh.zblockwars.Juego;
-
-public class EquiposManager {
-}

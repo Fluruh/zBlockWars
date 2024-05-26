@@ -1,9 +1,0 @@
-package com.fluruh.zblockwars.Juego;
-
-public enum ArenaEstado {
-    ESPERANDO,
-    COMENZANDO,
-    JUGANDO,
-    TERMINANDO,
-    DESACTIVADA;
-}
