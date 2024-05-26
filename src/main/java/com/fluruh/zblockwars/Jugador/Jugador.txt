@@ -1,0 +1,4 @@
+package com.fluruh.zblockwars.Jugador;
+
+public class Jugador {
+}

@@ -1,0 +1,38 @@
+package com.fluruh.zblockwars.Juego;
+
+import com.fluruh.zblockwars.Managers.ArchivosManager;
+import com.fluruh.zblockwars.Managers.MurallaManager;
+import com.fluruh.zblockwars.Managers.UbicacionManager;
+import org.bukkit.Location;
+
+public class Arena {
+    private EquiposManager equipoUno;
+    private EquiposManager equipoDos;
+    private String nombreArena;
+    private int cantidadMaxJugadores;
+    private int cantidadMinimaJugadores;
+    private int cantidadActualJugadores;
+    private ArenaEstado estadoArena;
+    private Location lobbyArena;//
+    private MurallaManager murallaManager;
+    private ArchivosManager archivosManager;
+
+    // ... (otros atributos que necesites, como equipos, jugadores, etc.)
+
+    public Arena(String nombreArena, Location esquinaUno, Location esquinaDos) {
+        this.murallaManager = new MurallaManager().ubicacionMuralla(UbicacionManager.getInstance().stringToLocation(archivosManager.getArchivoArenas().getString("Arenas." + nombreArena + ".Muralla.esquinaUno")), UbicacionManager.getInstance().stringToLocation(archivosManager.getArchivoArenas().getString("Arenas." + nombreArena + ".Muralla.esquinaDos"));
+        this.nombreArena = nombreArena;
+        this.estadoArena = ArenaEstado.DESACTIVADA; // La arena comienza desactivada
+        // ... (inicializar otros atributos)
+    }
+    // Métodos para cambiar el estado de la arena
+    public void setEstado(ArenaEstado nuevoEstado) {
+        this.estadoArena = nuevoEstado;
+        // ... (acciones adicionales según el nuevo estado)
+    }
+    // Getters y setters para los atributos
+    // ...
+    // Otros métodos para gestionar la arena (e.g., añadir/eliminar jugadores, capturar banderas)
+    // ...
+}
+

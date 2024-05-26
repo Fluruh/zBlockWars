@@ -1,0 +1,4 @@
+name: zBlockWars
+version: '${project.version}'
+main: com.fluruh.zblockwars.Main
+api-version: '1.20'
