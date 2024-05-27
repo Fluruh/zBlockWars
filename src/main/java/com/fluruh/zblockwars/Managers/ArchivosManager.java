@@ -1,6 +1,7 @@
 package com.fluruh.zblockwars.Managers;
 
 import com.fluruh.zblockwars.Main;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -18,6 +19,11 @@ public class ArchivosManager {
     private FileConfiguration arenas;
     private File archivoArenas;
 
+    public String traducir(String texto) {
+        String prefix = ChatColor.translateAlternateColorCodes('&', "&f[&6zB&eW&f] ");
+        String traducido = prefix + ChatColor.translateAlternateColorCodes('&', texto);
+        return traducido;
+    }
     public ArchivosManager(Main plugin) {
         this.plugin = plugin;
         this.archivoConfig = new File(plugin.getDataFolder(), "config.yml");

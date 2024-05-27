@@ -18,13 +18,13 @@ import java.util.List;
 
 public class zBlockWarsCMD implements CommandExecutor {
 
-    private ArchivosManager archivosManager;
+    private ArchivosManager am;
     private Arena arena;
     private MurallaManager ubicacionMuralla;
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        FileConfiguration mensajes = archivosManager.getMensajes();
+        FileConfiguration mensajes = am.getMensajes();
         String prefix = ChatColor.translateAlternateColorCodes('&', mensajes.getString("Prefix" + " "));
         if (!(sender instanceof Player)) {
 
@@ -37,7 +37,7 @@ public class zBlockWarsCMD implements CommandExecutor {
                     ItemStack varitaMuralla = new ItemStack(Material.IRON_AXE); // Crear el varitaMuralla de hierro
                     // Personalizar el nombre y el lore
                     ItemMeta meta = varitaMuralla.getItemMeta();
-                    meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&eVaritas de muralla")); // Nombre con color amarillo
+                    meta.setDisplayName(am.traducir("&eVaritas de muralla")); // Nombre con color amarillo
                     // Crear el lore (lista de strings)
                     List<String> lore = new ArrayList<>();
                     lore.add(nombreArena); // Agregar el nombre de la arena al lore
