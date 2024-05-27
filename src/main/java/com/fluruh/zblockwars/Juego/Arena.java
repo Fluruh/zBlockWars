@@ -158,6 +158,67 @@ public class Arena {
         }
         return null;
     }
+
+    public EquiposManager getEquipoUno() {
+        return equipoUno;
+    }
+
+    public void setEquipoUno(EquiposManager equipoUno) {
+        this.equipoUno = equipoUno;
+    }
+
+    public EquiposManager getEquipoDos() {
+        return equipoDos;
+    }
+
+    public void setEquipoDos(EquiposManager equipoDos) {
+        this.equipoDos = equipoDos;
+    }
+
+    public void setNombreArena(String nombreArena) {
+        this.nombreArena = nombreArena;
+    }
+
+    public Location getLobbyArena() {
+        return lobbyArena;
+    }
+
+    public void setLobbyArena(Location lobbyArena) {
+        this.lobbyArena = lobbyArena;
+    }
+
+
+    public EstadoArena getEstadoArena() {
+        return estadoArena;
+    }
+
+    public void setEstadoArena(EstadoArena estadoArena) {
+        this.estadoArena = estadoArena;
+    }
+
+    public int getCantidadMaximaJugadores() {
+        return cantidadMaximaJugadores;
+    }
+
+    public void setCantidadMaximaJugadores(int cantidadMaximaJugadores) {
+        this.cantidadMaximaJugadores = cantidadMaximaJugadores;
+    }
+
+    public int getCantidadMinimaJugadores() {
+        return cantidadMinimaJugadores;
+    }
+
+    public void setCantidadMinimaJugadores(int cantidadMinimaJugadores) {
+        this.cantidadMinimaJugadores = cantidadMinimaJugadores;
+    }
+
+    public int getCantidadActualJugadores() {
+        return cantidadActualJugadores;
+    }
+
+    public void setCantidadActualJugadores(int cantidadActualJugadores) {
+        this.cantidadActualJugadores = cantidadActualJugadores;
+    }
     // Getters y setters para los atributos
     // ...
     // Otros métodos para gestionar la arena (e.g., añadir/eliminar jugadores, capturar banderas)
