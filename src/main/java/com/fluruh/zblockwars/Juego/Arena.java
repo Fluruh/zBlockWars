@@ -9,6 +9,9 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 public class Arena {
     private EquiposManager equipoUno;
     private EquiposManager equipoDos;
@@ -93,13 +96,70 @@ public class Arena {
         this.estadoArena = nuevoEstado;
         // ... (acciones adicionales según el nuevo estado)
     }
-
     public void agregarJugador(Jugador jugador) {
-
+        if (estadoArena == EstadoArena.ESPERANDO || estadoArena == EstadoArena.COMENZANDO) {
+            if (cantidadActualJugadores < cantidadMaximaJugadores) {
+                asignarJugadorAEquipo(jugador);
+                cantidadActualJugadores++;
+            }
+        }
+    }
+    public void removerJugadorArena(Jugador jugador) {
+        if (equipoUno.removerJugador(jugador) || equipoDos.removerJugador(jugador)) {
+            this.cantidadActualJugadores--;
+        }
+    }
+    public void asignarJugadorAEquipo(Jugador jugador) {
+        if (equipoUno.getCantidadJugadores() < equipoDos.getCantidadJugadores()) {
+            equipoUno.agregarJugador(jugador);// Asigna el equipo al jugador
+        } else if (equipoDos.getCantidadJugadores() < equipoUno.getCantidadJugadores()) {
+            equipoDos.agregarJugador(jugador);// Asigna el equipo al jugador
+        } else {
+            // Si los equipos tienen la misma cantidad, elige uno al azar
+            Random random = new Random();
+            if (random.nextBoolean()) {
+                equipoUno.agregarJugador(jugador);// Asigna el equipo al jugador
+            } else {
+                equipoDos.agregarJugador(jugador);; // Asigna el equipo al jugador
+            }
+        }
+    }
+    public ArrayList<Jugador> getJugadoresArena() {
+        ArrayList<Jugador> jugadoresArena = new ArrayList<Jugador>();
+        for (Jugador j : equipoUno.getJugadoresEquipo()) {
+            jugadoresArena.add(j);
+        }
+        for (Jugador j : equipoDos.getJugadoresEquipo()) {
+            jugadoresArena.add(j);
+        }
+        return jugadoresArena;
+    }
+    public Jugador getJugadorArena(String jugador) {
+        ArrayList<Jugador> jugadores = getJugadoresArena();
+        for (int i=0; i < jugadores.size(); i++) {
+            if (jugadores.get(i).getJugador().getName().equals(jugador)) {
+                return jugadores.get(i);
+            }
+        }
+        return null;
+    }
+    public EquiposManager getEquipoJugador(String jugador) {
+        ArrayList<Jugador> jugadoresEquipoUno = equipoUno.getJugadoresEquipo();
+        ArrayList<Jugador> jugadoresEquipoDos = equipoDos.getJugadoresEquipo();
+        for (int i = 0; i < jugadoresEquipoUno.size(); i++) {
+            if (jugadoresEquipoUno.get(i).getJugador().getName().equals(jugador)) {
+                return this.equipoUno;
+            }
+        }
+        for (int i = 0; i < jugadoresEquipoDos.size(); i++) {
+            if (jugadoresEquipoDos.get(i).getJugador().getName().equals(jugador)) {
+                return this.equipoDos;
+            }
+        }
+        return null;
     }
     // Getters y setters para los atributos
     // ...
     // Otros métodos para gestionar la arena (e.g., añadir/eliminar jugadores, capturar banderas)
     // ...
 }
-

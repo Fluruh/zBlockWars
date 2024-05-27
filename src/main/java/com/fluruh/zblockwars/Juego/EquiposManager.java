@@ -7,12 +7,12 @@ import java.util.ArrayList;
 
 public class EquiposManager {
 
-    private ArrayList<Jugador> jugadores;
+    private ArrayList<Jugador> jugadoresEquipo;
     private String colorEquipo;
     private Location spawnEquipos;
 
     public EquiposManager(String colorEquipo) {
-        this.jugadores = new ArrayList<Jugador>();
+        this.jugadoresEquipo = new ArrayList<Jugador>();
         this.colorEquipo = colorEquipo;
         this.spawnEquipos = spawnEquipos;
     }
@@ -24,8 +24,8 @@ public class EquiposManager {
         return this.colorEquipo;
     }
     public boolean contieneJugador(String nombreJugador) {
-        for (int i = 0; i < jugadores.size(); i++) {
-            if (jugadores.get(i).getJugador().getName().equals(nombreJugador)) {
+        for (int i = 0; i < jugadoresEquipo.size(); i++) {
+            if (jugadoresEquipo.get(i).getJugador().getName().equals(nombreJugador)) {
                 return true;
             }
         }
@@ -33,22 +33,22 @@ public class EquiposManager {
     }
     public boolean agregarJugador(Jugador jugador) {
         if (!contieneJugador(jugador.getJugador().getName())) {
-            jugadores.add(jugador);
+            jugadoresEquipo.add(jugador);
             return true;
         }
         return false;
     }
     public boolean removerJugador(Jugador jugador) {
-        for (int i = 0; i < jugadores.size(); i++) {
-            if (jugadores.get(i).getJugador().getName().equals(jugador)) {
-                jugadores.remove(jugador);
+        for (int i = 0; i < jugadoresEquipo.size(); i++) {
+            if (jugadoresEquipo.get(i).getJugador().getName().equals(jugador)) {
+                jugadoresEquipo.remove(jugador);
                 return true;
             }
         }
         return false;
     }
-    public ArrayList<Jugador> getJugadores() {
-        return jugadores;
+    public ArrayList<Jugador> getJugadoresEquipo() {
+        return jugadoresEquipo;
     }
     public Location getSpawnEquipos() {
         return spawnEquipos;
@@ -57,11 +57,11 @@ public class EquiposManager {
         this.spawnEquipos = spawnEquipos;
     }
     public int getCantidadJugadores() {
-        return this.jugadores.size();
+        return this.jugadoresEquipo.size();
     }
     public int getBanderasCapturadas() {
         int banderasCapturadas = 0;
-        for (Jugador j : this.jugadores) {
+        for (Jugador j : this.jugadoresEquipo) {
             banderasCapturadas = banderasCapturadas + j.getBanderasCapturadas();
         }
         return banderasCapturadas;
