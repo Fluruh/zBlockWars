@@ -2,9 +2,7 @@ package com.fluruh.zblockwars.Comandos;
 
 import com.fluruh.zblockwars.Juego.Arena;
 import com.fluruh.zblockwars.Main;
-import com.fluruh.zblockwars.Managers.ArchivosManager;
 import com.fluruh.zblockwars.Managers.MurallaManager;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -16,6 +14,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class zBlockWarsCMD implements CommandExecutor {
 
@@ -48,18 +47,19 @@ public class zBlockWarsCMD implements CommandExecutor {
                     if (args.length >= 2) {
                         String nombreArena = args[1];
                         ItemStack varitaMuralla = new ItemStack(Material.CARROT);
-                        // Personalizar el nombre y el lore
-                        ItemMeta meta = varitaMuralla.getItemMeta();
-                        meta.setDisplayName(plugin.getArchivosManager().traducir("&fVarita de muralla")); // Nombre con color amarillo
-                        // Crear el lore (lista de strings)
-                        List<String> lore = new ArrayList<>();
-                        lore.add(plugin.getArchivosManager().traducirSP("&8Herramienta de configuración"));
-                        lore.add(plugin.getArchivosManager().traducirSP("&r"));
-                        lore.add(plugin.getArchivosManager().traducirSP("&7Estás configurando la arena &a" + nombreArena));
-                        lore.add(plugin.getArchivosManager().traducirSP("&r"));
-                        meta.setLore(lore);
-                        varitaMuralla.setItemMeta(meta); // Aplicar los cambios al varitaMuralla
-                        jugador.getInventory().setItem(0, varitaMuralla); // Dar el varitaMuralla al jugador
+                        ItemMeta metaItem = varitaMuralla.getItemMeta();
+                        if (metaItem != null) {
+                            metaItem.setDisplayName(plugin.getArchivosManager().traducir("&fVarita de muralla"));
+                            List<String> loreItem = new ArrayList<>();
+                            loreItem.add(plugin.getArchivosManager().traducirSP("&8Herramienta de configuración"));
+                            loreItem.add(plugin.getArchivosManager().traducirSP("&r"));
+                            loreItem.add(plugin.getArchivosManager().traducirSP("&7Estás configurando la arena &a" + nombreArena));
+                            loreItem.add(plugin.getArchivosManager().traducirSP("&r"));
+                            metaItem.setLore(loreItem);
+                            varitaMuralla.setItemMeta(metaItem);
+                            jugador.getInventory().setItem(0, varitaMuralla);
+                            jugador.sendMessage(plugin.getArchivosManager().traducir(mensajes.getString("usoVaritaMuralla").replace("%nombreArena%", args[1])));
+                        }
                     } else {
                         jugador.sendMessage(plugin.getArchivosManager().traducir(mensajes.getString("errorUsoCrearArena")));
                     }

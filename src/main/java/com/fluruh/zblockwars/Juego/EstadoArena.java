@@ -5,5 +5,5 @@ public enum EstadoArena {
     COMENZANDO,
     JUGANDO,
     TERMINANDO,
-    DESACTIVADA;
+    DESACTIVADA
 }
