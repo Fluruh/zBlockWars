@@ -10,10 +10,6 @@ public final class Main extends JavaPlugin {
 
     private ArchivosManager archivosManager;
 
-    public ArchivosManager getArchivosManager() {
-        return archivosManager;
-    }
-
     @Override
     public void onEnable() {
         registrarManagers();
@@ -23,19 +19,23 @@ public final class Main extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        archivosManager.guardarConfig();
-        archivosManager.guardarArchivoMensajes();
-        archivosManager.guardarArchivoArenas();
     }
+
     public void registrarManagers() {
         archivosManager = new ArchivosManager(this);
     }
+
     public void registrarComandos() {
         getCommand("zblockwars").setExecutor(new zBlockWarsCMD(this));
     }
+
     public void registrarEventos() {
         PluginManager pm = getServer().getPluginManager();
         pm.registerEvents(new JugadorListener(this), this);
+    }
+
+    public ArchivosManager getArchivosManager() {
+        return archivosManager;
     }
 
 }

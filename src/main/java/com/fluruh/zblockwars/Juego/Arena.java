@@ -187,7 +187,6 @@ public class Arena {
         this.lobbyArena = lobbyArena;
     }
 
-
     public EstadoArena getEstadoArena() {
         return estadoArena;
     }
@@ -219,8 +218,42 @@ public class Arena {
     public void setCantidadActualJugadores(int cantidadActualJugadores) {
         this.cantidadActualJugadores = cantidadActualJugadores;
     }
-    // Getters y setters para los atributos
-    // ...
-    // Otros métodos para gestionar la arena (e.g., añadir/eliminar jugadores, capturar banderas)
-    // ...
+
+    public boolean estaIniciada() {
+        if (estadoArena.equals(EstadoArena.DESACTIVADA) || estadoArena.equals(EstadoArena.ESPERANDO) || estadoArena.equals(EstadoArena.COMENZANDO)) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean estaLlena() {
+        if (cantidadActualJugadores == cantidadMaximaJugadores) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean estaActivada() {
+        if (!estadoArena.equals(EstadoArena.DESACTIVADA)) {
+            return true;
+        }
+        return false;
+    }
+
+    public EquiposManager getGanador() {
+        int banderasEquipoUno = equipoUno.getBanderasCapturadas();
+        int banderasEquipoDos = equipoDos.getBanderasCapturadas();
+        if (equipoUno.getJugadoresEquipo().size() == 0) {
+            return equipoDos;
+        }
+        if (equipoDos.getJugadoresEquipo().size() == 0) {
+            return equipoUno;
+        }
+        else if (banderasEquipoUno > banderasEquipoDos) {
+            return equipoUno;
+        }
+        else  {
+            return equipoDos;
+        }
+    }
 }

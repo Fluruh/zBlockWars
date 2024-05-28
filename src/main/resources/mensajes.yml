@@ -1,1 +1,4 @@
-Prefix: "&6&lB&e&lW &f|"
+Prefix: '&6&lB&e&lW &7&l➥'
+configuraciónRecargada: '&fLa configuración ha sido recargada correctamente.'
+sinPermisos: '&cNo tienes permiso para ejecutar este comando.'
+errorUsoCrearArena: '&fUso correcto del comando: &a/zblockwars crearArena <arena>&f.'
