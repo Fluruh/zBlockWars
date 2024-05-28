@@ -25,6 +25,10 @@ public class ArchivosManager {
         String traducido = prefix + ChatColor.translateAlternateColorCodes('&', texto);
         return traducido;
     }
+    public String traducirSP(String texto) {
+        String traducido = ChatColor.translateAlternateColorCodes('&', texto);
+        return traducido;
+    }
     public ArchivosManager(Main plugin) {
         this.plugin = plugin;
         this.archivoConfig = new File(plugin.getDataFolder(), "config.yml");
