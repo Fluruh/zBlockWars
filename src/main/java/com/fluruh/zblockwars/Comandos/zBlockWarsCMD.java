@@ -36,10 +36,10 @@ public class zBlockWarsCMD implements CommandExecutor {
             if(args[0].equalsIgnoreCase("configurarArena")) {
                 if (jugador.isOp() || jugador.hasPermission("zblockwars.admin")) {
                     String nombreArena = args[1];
-                    ItemStack varitaMuralla = new ItemStack(Material.IRON_AXE); // Crear el varitaMuralla de hierro
+                    ItemStack varitaMuralla = new ItemStack(Material.CARROT); // Crear el varitaMuralla de hierro
                     // Personalizar el nombre y el lore
                     ItemMeta meta = varitaMuralla.getItemMeta();
-                    meta.setDisplayName(plugin.getArchivosManager().traducir("&eVaritas de muralla")); // Nombre con color amarillo
+                    meta.setDisplayName(plugin.getArchivosManager().traducir("&7Varitas de muralla")); // Nombre con color amarillo
                     // Crear el lore (lista de strings)
                     List<String> lore = new ArrayList<>();
                     lore.add(nombreArena); // Agregar el nombre de la arena al lore

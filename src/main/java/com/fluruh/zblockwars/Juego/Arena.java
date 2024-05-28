@@ -33,8 +33,8 @@ public class Arena {
         this.equipoDos = new EquiposManager(equipoDos);
         this.nombreArena = nombreArena;
         this.lobbyArena = UbicacionManager.getIns().stringToLocation("Arenas." + nombreArena + ".Lobby");
-        this.ubicacionMuralla = new MurallaManager(UbicacionManager.getIns().stringToLocation(am.getArenas().getString("Arenas." + nombreArena + ".Muralla.murallaEsquinaUno")),
-                UbicacionManager.getIns().stringToLocation(am.getArenas().getString("Arenas." + nombreArena + ".Muralla.murallaEsquinaDos")));
+        this.ubicacionMuralla = new MurallaManager(UbicacionManager.getIns().stringToLocation(am.getArenas().getString("Arenas." + nombreArena + ".Muralla.esquinaUno")),
+                UbicacionManager.getIns().stringToLocation(am.getArenas().getString("Arenas." + nombreArena + ".Muralla.esquinaDos")));
         this.estadoArena = EstadoArena.DESACTIVADA;
         this.cantidadMinimaJugadores = cantidadMinimaJugadores;
         this.cantidadMaximaJugadores = cantidadMaximaJugadores;

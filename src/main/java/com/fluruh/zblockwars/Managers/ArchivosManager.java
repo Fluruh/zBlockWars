@@ -21,21 +21,22 @@ public class ArchivosManager {
     private static ArchivosManager instance;
 
     public String traducir(String texto) {
-        String prefix = ChatColor.translateAlternateColorCodes('&', "&f[&6zB&eW&f] ");
+        String prefix = ChatColor.translateAlternateColorCodes('&', getMensajes().getString("Prefix") + " ");
         String traducido = prefix + ChatColor.translateAlternateColorCodes('&', texto);
         return traducido;
     }
     public ArchivosManager(Main plugin) {
         this.plugin = plugin;
         this.archivoConfig = new File(plugin.getDataFolder(), "config.yml");
-        this.config = YamlConfiguration.loadConfiguration(archivoConfig);
         crearConfig();
+        this.config = YamlConfiguration.loadConfiguration(archivoConfig);
         this.archivoMensajes = new File(plugin.getDataFolder(), "mensajes.yml");
-        this.mensajes = YamlConfiguration.loadConfiguration(archivoMensajes);
         crearArchivoMensajes();
+        this.mensajes = YamlConfiguration.loadConfiguration(archivoMensajes);
         this.archivoArenas = new File(plugin.getDataFolder(), "arenas.yml");
-        this.arenas = YamlConfiguration.loadConfiguration(archivoArenas);
         crearArchivoArenas();
+        this.arenas = YamlConfiguration.loadConfiguration(archivoArenas);
+
     }
     private void crearConfig() {
         if (!archivoConfig.exists()) {
