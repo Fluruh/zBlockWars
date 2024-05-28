@@ -21,17 +21,20 @@ public class JugadorListener implements Listener {
         Player jugador = clickEventoJugador.getPlayer();
         Material itemEnMano = jugador.getInventory().getItemInMainHand().getType();
         String  nombreItem = jugador.getInventory().getItemInMainHand().getItemMeta().getDisplayName();
-        String lore = jugador.getInventory().getItemInMainHand().getItemMeta().getLore().get(2);
-        lore = lore.replaceFirst("Estás configurando la arena: ", "");
-        lore = lore.replaceAll("§[0-9a-fk-or]", "");
         if (itemEnMano != null && !itemEnMano.isAir()) {
             if (clickEventoJugador.getAction().equals(Action.LEFT_CLICK_BLOCK) && itemEnMano == Material.CARROT && nombreItem.equals(plugin.getArchivosManager().traducir("&fVarita de muralla"))) {
+                String lore = jugador.getInventory().getItemInMainHand().getItemMeta().getLore().get(2);
+                lore = lore.replaceFirst("Estás configurando la arena: ", "");
+                lore = lore.replaceAll("§[0-9a-fk-or]", "");
                 plugin.getArchivosManager().getArenas().set("Arenas." + lore + ".Muralla.esquinaUno", UbicacionManager.getIns().locationToString(clickEventoJugador.getClickedBlock().getLocation()));
                 plugin.getArchivosManager().guardarArenas();
                 jugador.sendMessage(plugin.getArchivosManager().traducir("&fLa posición &a1 &fde la muralla fue ubicada correctamente para la arena: &a" + lore + "&f."));
                 clickEventoJugador.setCancelled(true);
             }
             if (clickEventoJugador.getAction().equals(Action.RIGHT_CLICK_BLOCK) && itemEnMano == Material.CARROT  && nombreItem.equals(plugin.getArchivosManager().traducir("&fVarita de muralla"))) {
+                String lore = jugador.getInventory().getItemInMainHand().getItemMeta().getLore().get(2);
+                lore = lore.replaceFirst("Estás configurando la arena: ", "");
+                lore = lore.replaceAll("§[0-9a-fk-or]", "");
                 plugin.getArchivosManager().getArenas().set("Arenas." + lore + ".Muralla.esquinaDos", UbicacionManager.getIns().locationToString(clickEventoJugador.getClickedBlock().getLocation()));
                 plugin.getArchivosManager().guardarArenas();
                 jugador.sendMessage(plugin.getArchivosManager().traducir("&fLa posición &a2 &fde la muralla fue ubicada correctamente para la arena: &a" + lore + "&f."));
