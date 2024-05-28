@@ -55,7 +55,7 @@ public class zBlockWarsCMD implements CommandExecutor {
                         List<String> lore = new ArrayList<>();
                         lore.add(plugin.getArchivosManager().traducirSP("&8Herramienta de configuración"));
                         lore.add(plugin.getArchivosManager().traducirSP("&r"));
-                        lore.add(plugin.getArchivosManager().traducirSP("&7Estás configurando la arena: &a" + nombreArena));
+                        lore.add(plugin.getArchivosManager().traducirSP("&7Estás configurando la arena &a" + nombreArena));
                         lore.add(plugin.getArchivosManager().traducirSP("&r"));
                         meta.setLore(lore);
                         varitaMuralla.setItemMeta(meta); // Aplicar los cambios al varitaMuralla
