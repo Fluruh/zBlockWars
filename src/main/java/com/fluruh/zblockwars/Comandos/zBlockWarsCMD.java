@@ -50,7 +50,7 @@ public class zBlockWarsCMD implements CommandExecutor {
                         ItemStack varitaMuralla = new ItemStack(Material.CARROT);
                         // Personalizar el nombre y el lore
                         ItemMeta meta = varitaMuralla.getItemMeta();
-                        meta.setDisplayName(plugin.getArchivosManager().traducir("&fVaritas de muralla")); // Nombre con color amarillo
+                        meta.setDisplayName(plugin.getArchivosManager().traducir("&fVarita de muralla")); // Nombre con color amarillo
                         // Crear el lore (lista de strings)
                         List<String> lore = new ArrayList<>();
                         lore.add(plugin.getArchivosManager().traducirSP("&8Herramienta de configuración"));
