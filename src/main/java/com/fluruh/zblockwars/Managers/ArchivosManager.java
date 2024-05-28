@@ -18,6 +18,7 @@ public class ArchivosManager {
     private File archivoMensajes;
     private FileConfiguration arenas;
     private File archivoArenas;
+    private static ArchivosManager instance;
 
     public String traducir(String texto) {
         String prefix = ChatColor.translateAlternateColorCodes('&', "&f[&6zB&eW&f] ");
