@@ -14,9 +14,10 @@ public final class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        registrarManagers();
-        registrarComandos();
         registrarEventos();
+        registrarComandos();
+        registrarManagers();
+        arenaManager.cargarArenas();
     }
 
     @Override
@@ -40,6 +41,10 @@ public final class Main extends JavaPlugin {
 
     public ArchivosManager getArchivosManager() {
         return archivosManager;
+    }
+
+    public ArenaManager getArenaManager() {
+        return arenaManager;
     }
 
 }

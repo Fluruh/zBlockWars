@@ -54,67 +54,42 @@ public class ArenaManager {
         return null;
     }
 
-    public void cargarPartidas() {
-        this.listaArenas = new ArrayList<Arena>();
+    public void cargarArenas() {
+        listaArenas = new ArrayList<Arena>();
         FileConfiguration arenas = plugin.getArchivosManager().getArenas();
-        if(arenas.contains("Arenas")) {
+        if (arenas.contains("Arenas")) {
             for (String key : arenas.getConfigurationSection("Arenas").getKeys(false)) {
-                int minJugadores = Integer.valueOf(arenas.getString("Arenas." + key + ".minJugadores"));
-                int maxJugadores = Integer.valueOf(arenas.getString("Arenas." + key + ".maxJugadores"));
-                int tiempoMaximo = Integer.valueOf(arenas.getString("Arenas." + key + ".tiempoMaximo"));
+                int minJugadores = arenas.getInt("Arenas." + key + ".minJugadores");
+                int maxJugadores = arenas.getInt(("Arenas." + key + ".maxJugadores"));
+                int tiempoMaximo = arenas.getInt(("Arenas." + key + ".tiempoMaximo"));
                 Location lobbyArena = null;
-                if(arenas.contains("Arenas."+ key + ".lobbyArena")) {
-                    Location lobbyArena = UbicacionManager.getIns().stringToLocation(arenas.getString("Arenas." + key + ".lobbyArena"));
+                if (arenas.contains("Arenas." + key + ".lobbyArena")) {
+                    lobbyArena = UbicacionManager.getIns().stringToLocation(arenas.getString("Arenas." + key + ".lobbyArena"));
                 }
-
-
-                String nombreTeam1 = arenas.getString("Arenas."+key+".Team1.name");
-
-                Location lSpawnTeam1 = null;
-                if(arenas.contains("Arenas."+key+".Team1.Spawn")) {
-                    double xSpawnTeam1 = Double.valueOf(arenas.getString("Arenas."+key+".Team1.Spawn.x"));
-                    double ySpawnTeam1 = Double.valueOf(arenas.getString("Arenas."+key+".Team1.Spawn.y"));
-                    double zSpawnTeam1 = Double.valueOf(arenas.getString("Arenas."+key+".Team1.Spawn.z"));
-                    String worldSpawnTeam1 = arenas.getString("Arenas."+key+".Team1.Spawn.world");
-                    float pitchSpawnTeam1 = Float.valueOf(arenas.getString("Arenas."+key+".Team1.Spawn.pitch"));
-                    float yawSpawnTeam1 = Float.valueOf(arenas.getString("Arenas."+key+".Team1.Spawn.yaw"));
-                    lSpawnTeam1 = new Location(Bukkit.getWorld(worldSpawnTeam1),xSpawnTeam1,ySpawnTeam1,zSpawnTeam1,yawSpawnTeam1,pitchSpawnTeam1);
+                String nombreEquipoUno = arenas.getString("Arenas." + key + ".EquipoUno.Nombre");
+                Location spawnEquipoUno = null;
+                if (arenas.contains("Arenas." + key + ".equipoUno.Spawn")) {
+                    spawnEquipoUno = UbicacionManager.getIns().stringToLocation(arenas.getString("Arenas." + key + ".equipoUno.Spawn"));
                 }
-
-
-                String nombreTeam2 = arenas.getString("Arenas."+key+".Team2.name");
-                Location lSpawnTeam2 = null;
-                if(arenas.contains("Arenas."+key+".Team2.Spawn")) {
-                    double xSpawnTeam2 = Double.valueOf(arenas.getString("Arenas."+key+".Team2.Spawn.x"));
-                    double ySpawnTeam2 = Double.valueOf(arenas.getString("Arenas."+key+".Team2.Spawn.y"));
-                    double zSpawnTeam2 = Double.valueOf(arenas.getString("Arenas."+key+".Team2.Spawn.z"));
-                    String worldSpawnTeam2 = arenas.getString("Arenas."+key+".Team2.Spawn.world");
-                    float pitchSpawnTeam2 = Float.valueOf(arenas.getString("Arenas."+key+".Team2.Spawn.pitch"));
-                    float yawSpawnTeam2 = Float.valueOf(arenas.getString("Arenas."+key+".Team2.Spawn.yaw"));
-                    lSpawnTeam2 = new Location(Bukkit.getWorld(worldSpawnTeam2),xSpawnTeam2,ySpawnTeam2,zSpawnTeam2,yawSpawnTeam2,pitchSpawnTeam2);
+                String nombreEquipoDos = arenas.getString("Arenas." + key + ".EquipoDos.Nombre");
+                Location spawnEquipoDos = null;
+                if (arenas.contains("Arenas." + key + ".equipoDos.Spawn")) {
+                    spawnEquipoDos = UbicacionManager.getIns().stringToLocation(arenas.getString("Arenas." + key + ".equipoDos.Spawn"));
                 }
-
-                Partida partida = new Partida(key, tiempoMaximo,nombreTeam1,nombreTeam2,vidas);
-                if(nombreTeam1.equalsIgnoreCase("random")) {
-                    partida.getTeam1().setRandom(true);
+                Arena arena = new Arena(key, nombreEquipoUno, nombreEquipoDos, minJugadores, maxJugadores);
+                arena.setCantidadMinimaJugadores(minJugadores);
+                arena.setCantidadMaximaJugadores(maxJugadores);
+                arena.setTiempoMaximo(tiempoMaximo);
+                arena.setLobbyArena(lobbyArena);
+                arena.getEquipoUno().setSpawnEquipo(spawnEquipoUno);
+                arena.getEquipoDos().setSpawnEquipo(spawnEquipoDos);
+                String activada = arenas.getString("Arenas." + key + ".Activada");
+                if (activada.equals("false")) {
+                    arena.setEstado(EstadoArena.DESACTIVADA);
+                } else {
+                    arena.setEstado(EstadoArena.ESPERANDO);
                 }
-                if(nombreTeam2.equalsIgnoreCase("random")) {
-                    partida.getTeam2().setRandom(true);
-                }
-                partida.modificarTeams(getConfig());
-                partida.setCantidadMaximaJugadores(max_players);
-                partida.setCantidadMinimaJugadores(minJugadores);
-                partida.setLobby(lobbyArena);
-                partida.getTeam1().setSpawn(lSpawnTeam1);
-                partida.getTeam2().setSpawn(lSpawnTeam2);
-                String enabled = arenas.getString("Arenas."+key+".enabled");
-                if(enabled.equals("true")) {
-                    partida.setEstado(EstadoPartida.ESPERANDO);
-                }else {
-                    partida.setEstado(EstadoPartida.DESACTIVADA);
-                }
-
-                this.partidas.add(partida);
+                listaArenas.add(arena);
             }
         }
 

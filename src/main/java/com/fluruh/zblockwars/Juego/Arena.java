@@ -32,7 +32,7 @@ public class Arena {
         return ubicacionMuralla;
     }
 
-    public Arena(String nombreArena, String equipoUno, String equipoDos, int cantidadMinimaJugadores, int cantidadMaximaJugadores) {
+    public Arena(String nombreArena, String equipoUno, String equipoDos) {
         this.equipoUno = new EquiposManager(equipoUno);
         this.equipoDos = new EquiposManager(equipoDos);
         this.nombreArena = nombreArena;
@@ -40,8 +40,8 @@ public class Arena {
         this.ubicacionMuralla = new MurallaManager(UbicacionManager.getIns().stringToLocation(am.getArenas().getString("Arenas." + nombreArena + ".Muralla.esquinaUno")),
                 UbicacionManager.getIns().stringToLocation(am.getArenas().getString("Arenas." + nombreArena + ".Muralla.esquinaDos")));
         this.estadoArena = EstadoArena.DESACTIVADA;
-        this.cantidadMinimaJugadores = cantidadMinimaJugadores;
-        this.cantidadMaximaJugadores = cantidadMaximaJugadores;
+        this.cantidadMinimaJugadores = 2;
+        this.cantidadMaximaJugadores = 8;
         this.tiempo = 0;
         this.tiempoMaximo = 60;
         // ... (inicializar otros atributos)
