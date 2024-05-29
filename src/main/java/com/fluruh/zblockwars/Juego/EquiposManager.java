@@ -9,12 +9,12 @@ public class EquiposManager {
 
     private ArrayList<Jugador> jugadoresEquipo;
     private String colorEquipo;
-    private Location spawnEquipos;
+    private Location spawnEquipo;
 
     public EquiposManager(String colorEquipo) {
         this.jugadoresEquipo = new ArrayList<Jugador>();
         this.colorEquipo = colorEquipo;
-        this.spawnEquipos = spawnEquipos;
+        this.spawnEquipo = spawnEquipo;
     }
 
     public void setColorEquipo(String colorEquipo) {
@@ -50,11 +50,11 @@ public class EquiposManager {
     public ArrayList<Jugador> getJugadoresEquipo() {
         return jugadoresEquipo;
     }
-    public Location getSpawnEquipos() {
-        return spawnEquipos;
+    public Location getSpawnEquipo() {
+        return spawnEquipo;
     }
-    public void setSpawnEquipos(Location spawnEquipos) {
-        this.spawnEquipos = spawnEquipos;
+    public void setSpawnEquipo(Location spawnEquipo) {
+        this.spawnEquipo = spawnEquipo;
     }
     public int getCantidadJugadores() {
         return this.jugadoresEquipo.size();

@@ -28,6 +28,10 @@ public class Arena {
 
     // ... (otros atributos que necesites, como equipos, jugadores, etc.)
 
+    public MurallaManager getUbicacionMuralla() {
+        return ubicacionMuralla;
+    }
+
     public Arena(String nombreArena, String equipoUno, String equipoDos, int cantidadMinimaJugadores, int cantidadMaximaJugadores) {
         this.equipoUno = new EquiposManager(equipoUno);
         this.equipoDos = new EquiposManager(equipoDos);
@@ -62,6 +66,14 @@ public class Arena {
             }
         }
     }
+
+    public Location getEsquinaUnoMuralla() {
+        return ubicacionMuralla.getEsquinaUno();
+    }
+    public Location getEsquinaDosMuralla() {
+        return ubicacionMuralla.getEsquinaDos();
+    }
+
 
     public String getNombreArena() {
         return nombreArena;
