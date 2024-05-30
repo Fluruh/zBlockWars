@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class Equipo {
 
-    private ArrayList<Jugador> jugadoresEquipo;
+    private final ArrayList<Jugador> jugadoresEquipo;
     private int maxJugadoresEquipo;
     private String colorEquipo;
     private Location spawnEquipo;
@@ -25,12 +25,10 @@ public class Equipo {
     public boolean contieneJugador(Jugador jugador) {
         return jugadoresEquipo.contains(jugador);
     }
-    public boolean agregarJugador(Jugador jugador) {
+    public void agregarJugador(Jugador jugador) {
         if (!contieneJugador(jugador)) {
             jugadoresEquipo.add(jugador);
-            return true;
         }
-        return false;
     }
     public boolean removerJugador(Jugador jugador) {
         if (contieneJugador(jugador)) {
@@ -39,8 +37,8 @@ public class Equipo {
         }
         return false;
     }
-    public boolean estaLleno() {
-        return jugadoresEquipo.size() >= getMaxJugadoresEquipo();
+    public boolean noEstaLleno() {
+        return jugadoresEquipo.size() < getMaxJugadoresEquipo();
     }
     public ArrayList<Jugador> getJugadoresEquipo() {
         return jugadoresEquipo;

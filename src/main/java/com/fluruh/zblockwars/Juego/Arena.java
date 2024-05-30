@@ -96,9 +96,9 @@ public class Arena {
                         equipoDos.agregarJugador(jugador);
                     }
                 } else {
-                    if (equipoUno.getCantidadJugadores() <= equipoDos.getCantidadJugadores() && !equipoUno.estaLleno()) {
+                    if (equipoUno.getCantidadJugadores() <= equipoDos.getCantidadJugadores() && equipoUno.noEstaLleno()) {
                         equipoUno.agregarJugador(jugador);
-                    } else if (!equipoDos.estaLleno()) {
+                    } else if (equipoDos.noEstaLleno()) {
                         equipoDos.agregarJugador(jugador);
                     } else {
                         equipoUno.agregarJugador(jugador);
@@ -208,5 +208,9 @@ public class Arena {
     }
     public void setUbicacionMuralla(Location esquinaUno, Location esquinaDos) {
         ubicacionMuralla = new MurallaManager(esquinaUno, esquinaDos);
+    }
+
+    public MurallaManager getUbicacionMuralla() {
+        return ubicacionMuralla;
     }
 }

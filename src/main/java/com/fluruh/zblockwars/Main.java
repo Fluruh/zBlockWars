@@ -4,6 +4,7 @@ import com.fluruh.zblockwars.Comandos.zBlockWarsCMD;
 import com.fluruh.zblockwars.Eventos.JugadorListener;
 import com.fluruh.zblockwars.Juego.ArenaManager;
 import com.fluruh.zblockwars.Managers.ArchivosManager;
+import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -32,7 +33,10 @@ public class Main extends JavaPlugin {
     }
 
     public void registrarComandos() {
-        getCommand("zblockwars").setExecutor(new zBlockWarsCMD(this));
+        PluginCommand command = getCommand("zblockwars");
+        if (command != null) {
+            command.setExecutor(new zBlockWarsCMD(this));
+        }
     }
 
     public void registrarEventos() {

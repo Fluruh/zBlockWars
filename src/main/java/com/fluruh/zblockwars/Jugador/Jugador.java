@@ -4,12 +4,12 @@ import org.bukkit.entity.Player;
 
 public class Jugador {
 
-    private Player jugador;
+    private final Player jugador;
     private int asesinatosJugador;
     private int muertesJugador;
     private int banderasCapturadas;
     private boolean asesinadoRecientemente;
-    private ElementosGuardados elementosGuardados;
+    private final ElementosGuardados elementosGuardados;
 
     @Deprecated
     public Jugador(Player jugador) {

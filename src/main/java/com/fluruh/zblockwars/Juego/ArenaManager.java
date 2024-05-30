@@ -4,13 +4,14 @@ import com.fluruh.zblockwars.Jugador.Jugador;
 import com.fluruh.zblockwars.Main;
 import com.fluruh.zblockwars.Managers.UbicacionManager;
 import org.bukkit.Location;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.ArrayList;
 
 public class ArenaManager {
 
-    private Main plugin;
+    private final Main plugin;
     private ArrayList<Arena> listaArenas;
 
     public ArenaManager(Main plugin) {
@@ -25,6 +26,7 @@ public class ArenaManager {
         for (int i = 0; i < listaArenas.size(); i++) {
             if (listaArenas.get(i).getNombreArena().equals(nombreArena)) {
                 listaArenas.remove(i);
+                break;
             }
         }
     }
@@ -34,20 +36,20 @@ public class ArenaManager {
     }
 
     public Arena getArena(String nombreArena) {
-        for (int i = 0; i < listaArenas.size(); i++) {
-            if (listaArenas.get(i).getNombreArena().equals(nombreArena)) {
-                return listaArenas.get(i);
+        for (Arena a : listaArenas) {
+            if (a.getNombreArena().equals(nombreArena)) {
+                return a;
             }
         }
         return null;
     }
 
     public Arena getArenaJugador(String nombreJugador) {
-        for (int i = 0; i < listaArenas.size(); i++) {
-            ArrayList<Jugador> jugadores = listaArenas.get(i).getJugadoresArena();
-            for (int k = 0; k < jugadores.size(); k++) {
-                if (jugadores.get(k).getJugador().getName().equals(nombreJugador)) {
-                    return listaArenas.get(i);
+        for (Arena listaArena : listaArenas) {
+            ArrayList<Jugador> jugadores = listaArena.getJugadoresArena();
+            for (Jugador j : jugadores) {
+                if (j.getJugador().getName().equals(nombreJugador)) {
+                    return listaArena;
                 }
             }
         }
@@ -55,44 +57,57 @@ public class ArenaManager {
     }
 
     public void cargarArenas() {
-        listaArenas = new ArrayList<Arena>();
+        listaArenas = new ArrayList<>();
         FileConfiguration arenas = plugin.getArchivosManager().getArenas();
-        if (arenas.contains("Arenas")) {
-            for (String key : arenas.getConfigurationSection("Arenas").getKeys(false)) {
+        ConfigurationSection arenasSection = arenas.getConfigurationSection("Arenas");
+        if (arenasSection != null) {
+            for (String key : arenasSection.getKeys(false)) {
                 int minJugadores = arenas.getInt("Arenas." + key + ".minJugadores");
                 int maxJugadores = arenas.getInt(("Arenas." + key + ".maxJugadores"));
                 int tiempoMaximo = arenas.getInt(("Arenas." + key + ".tiempoMaximo"));
                 Location lobbyArena = null;
-                if (arenas.contains("Arenas." + key + ".lobbyArena")) {
-                    lobbyArena = UbicacionManager.getIns().stringToLocation(arenas.getString("Arenas." + key + ".lobbyArena"));
+                String lobbyArenaString = arenas.getString("Arenas." + key + ".lobbyArena");
+                if (lobbyArenaString != null) {
+                    lobbyArena = UbicacionManager.getIns().stringToLocation(lobbyArenaString);
                 }
-                String nombreEquipoUno = arenas.getString("Arenas." + key + ".EquipoUno.Nombre");
+                String colorEquipoUno = arenas.getString("Arenas." + key + ".equipoUno.Color");
                 Location spawnEquipoUno = null;
-                if (arenas.contains("Arenas." + key + ".equipoUno.Spawn")) {
-                    spawnEquipoUno = UbicacionManager.getIns().stringToLocation(arenas.getString("Arenas." + key + ".equipoUno.Spawn"));
+                String spawnEquipoUnoString = arenas.getString("Arenas." + key + ".equipoUno.Spawn");
+                if (spawnEquipoUnoString != null) {
+                    spawnEquipoUno = UbicacionManager.getIns().stringToLocation(spawnEquipoUnoString);
                 }
-                String nombreEquipoDos = arenas.getString("Arenas." + key + ".EquipoDos.Nombre");
+                String colorEquipoDos = arenas.getString("Arenas." + key + ".equipoDos.Color");
                 Location spawnEquipoDos = null;
-                if (arenas.contains("Arenas." + key + ".equipoDos.Spawn")) {
-                    spawnEquipoDos = UbicacionManager.getIns().stringToLocation(arenas.getString("Arenas." + key + ".equipoDos.Spawn"));
+                String spawnEquipoDosString = arenas.getString("Arenas." + key + ".equipoDos.Spawn");
+                if (spawnEquipoDosString != null) {
+                    spawnEquipoDos = UbicacionManager.getIns().stringToLocation(spawnEquipoDosString);
                 }
-                Arena arena = new Arena(key, plugin.getArchivosManager().getArenas());
+                Location murallaEsquinaUno = null;
+                String murallaEsquinaUnoString = arenas.getString("Arenas." + key + ".Muralla.esquinaUno");
+                if (murallaEsquinaUnoString != null) {
+                    murallaEsquinaUno = UbicacionManager.getIns().stringToLocation(murallaEsquinaUnoString);
+                }
+                Location murallaEsquinaDos = null;
+                String murallaEsquinaDosString = arenas.getString("Arenas." + key + ".Muralla.esquinaDos");
+                if (murallaEsquinaDosString != null) {
+                    murallaEsquinaDos = UbicacionManager.getIns().stringToLocation(murallaEsquinaDosString);
+                }
+                Arena arena = new Arena(key);
                 arena.setCantidadMinimaJugadores(minJugadores);
                 arena.setCantidadMaximaJugadores(maxJugadores);
                 arena.setTiempoMaximo(tiempoMaximo);
                 arena.setSpawnArena(lobbyArena);
+                arena.getEquipoUno().setColorEquipo(colorEquipoUno);
                 arena.getEquipoUno().setSpawnEquipo(spawnEquipoUno);
+                arena.getEquipoDos().setColorEquipo(colorEquipoDos);
                 arena.getEquipoDos().setSpawnEquipo(spawnEquipoDos);
-                String activada = arenas.getString("Arenas." + key + ".Activada");
-                if (activada.equals("false")) {
-                    arena.setEstado(EstadoArena.DESACTIVADA);
-                } else {
-                    arena.setEstado(EstadoArena.ESPERANDO);
-                }
+                arena.getUbicacionMuralla().setEsquinaUno(murallaEsquinaUno);
+                arena.getUbicacionMuralla().setEsquinaDos(murallaEsquinaDos);
+                boolean estaActivada = arenas.getBoolean("Arenas." + key + ".Activada", false);
+                arena.setEstado(estaActivada ? EstadoArena.ESPERANDO : EstadoArena.DESACTIVADA);
                 listaArenas.add(arena);
             }
         }
-
     }
 
     public void guardarArenas() {
@@ -102,10 +117,10 @@ public class ArenaManager {
             Location lobbyArena = arena.getSpawnArena();
             Location spawnEquipoUno = arena.getEquipoUno().getSpawnEquipo();
             Location spawnEquipoDos = arena.getEquipoDos().getSpawnEquipo();
-            Location murallaEsquinaUno = arena.getEsquinaUnoMuralla();
-            Location murallaEsquinaDos = arena.getEsquinaDosMuralla();
+            Location murallaEsquinaUno = arena.getUbicacionMuralla().getEsquinaUno();
+            Location murallaEsquinaDos = arena.getUbicacionMuralla().getEsquinaDos();
             arenas.set("Arenas." + nombreArena + ".minJugadores", arena.getCantidadMinimaJugadores());
-            arenas.set("Arenas." + nombreArena + ".maxJugadores", arena.getCantidadMinimaJugadores());
+            arenas.set("Arenas." + nombreArena + ".maxJugadores", arena.getCantidadMaximaJugadores());
             arenas.set("Arenas." + nombreArena + ".maxTiempo", arena.getTiempoMaximo());
             if (murallaEsquinaUno != null && murallaEsquinaDos != null) {
                 arenas.set("Arenas." + nombreArena + ".Muralla.esquinaUno", UbicacionManager.getIns().locationToString(murallaEsquinaUno));
