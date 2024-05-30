@@ -48,7 +48,7 @@ public class zBlockWarsCMD implements CommandExecutor {
                         Arena arena = plugin.getArenaManager().getArena(nombreArena);
                         if (arena != null) {
                             if (args[1].equalsIgnoreCase("Arena")) {
-                                arena.setLobbyArena(jugador.getLocation().clone());
+                                arena.setSpawnArena(jugador.getLocation().clone());
                                 jugador.sendMessage(plugin.getArchivosManager().traducir(mensajes.getString("spawnArenaFijadoCorrectamente").replace("%nombreArena%", args[1])));
                             } else if (args[1].equalsIgnoreCase("EquipoUno")) {
                                 arena.getEquipoUno().setSpawnEquipo(jugador.getLocation().clone());
@@ -76,7 +76,7 @@ public class zBlockWarsCMD implements CommandExecutor {
                         String nombreEquipoDos = args[3];
                         if (plugin.getArenaManager().getArena(nombreArena) == null) {
                             if (plugin.getArchivosManager().getConfig().contains("lobbyArena")) {
-                                Arena arena = new Arena(nombreArena, nombreEquipoUno, nombreEquipoDos);
+                                Arena arena = new Arena(nombreArena);
                                 plugin.getArenaManager().agregarArena(arena);
                                 jugador.sendMessage(plugin.getArchivosManager().traducir(mensajes.getString("arenaCreadaCorrectamente").replace("%nombreArena%", args[1])));
                             } else {

@@ -7,16 +7,17 @@ import com.fluruh.zblockwars.Managers.ArchivosManager;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public final class Main extends JavaPlugin {
+public class Main extends JavaPlugin {
 
-    private ArchivosManager archivosManager;
-    private ArenaManager arenaManager;
+    ArchivosManager archivosManager;
+    ArenaManager arenaManager;
 
     @Override
     public void onEnable() {
+        archivosManager = new ArchivosManager(this);
+        registrarManagers();
         registrarEventos();
         registrarComandos();
-        registrarManagers();
         arenaManager.cargarArenas();
     }
 
@@ -38,13 +39,10 @@ public final class Main extends JavaPlugin {
         PluginManager pm = getServer().getPluginManager();
         pm.registerEvents(new JugadorListener(this), this);
     }
-
     public ArchivosManager getArchivosManager() {
         return archivosManager;
     }
-
     public ArenaManager getArenaManager() {
         return arenaManager;
     }
-
 }

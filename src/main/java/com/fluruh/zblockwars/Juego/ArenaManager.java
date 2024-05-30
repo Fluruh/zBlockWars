@@ -76,11 +76,11 @@ public class ArenaManager {
                 if (arenas.contains("Arenas." + key + ".equipoDos.Spawn")) {
                     spawnEquipoDos = UbicacionManager.getIns().stringToLocation(arenas.getString("Arenas." + key + ".equipoDos.Spawn"));
                 }
-                Arena arena = new Arena(key, nombreEquipoUno, nombreEquipoDos, minJugadores, maxJugadores);
+                Arena arena = new Arena(key, plugin.getArchivosManager().getArenas());
                 arena.setCantidadMinimaJugadores(minJugadores);
                 arena.setCantidadMaximaJugadores(maxJugadores);
                 arena.setTiempoMaximo(tiempoMaximo);
-                arena.setLobbyArena(lobbyArena);
+                arena.setSpawnArena(lobbyArena);
                 arena.getEquipoUno().setSpawnEquipo(spawnEquipoUno);
                 arena.getEquipoDos().setSpawnEquipo(spawnEquipoDos);
                 String activada = arenas.getString("Arenas." + key + ".Activada");
@@ -99,7 +99,7 @@ public class ArenaManager {
         FileConfiguration arenas = plugin.getArchivosManager().getArenas();
         for (Arena arena : listaArenas) {
             String nombreArena = arena.getNombreArena();
-            Location lobbyArena = arena.getLobbyArena();
+            Location lobbyArena = arena.getSpawnArena();
             Location spawnEquipoUno = arena.getEquipoUno().getSpawnEquipo();
             Location spawnEquipoDos = arena.getEquipoDos().getSpawnEquipo();
             Location murallaEsquinaUno = arena.getEsquinaUnoMuralla();

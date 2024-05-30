@@ -5,16 +5,15 @@ import org.bukkit.Location;
 
 import java.util.ArrayList;
 
-public class EquiposManager {
+public class Equipo {
 
     private ArrayList<Jugador> jugadoresEquipo;
+    private int maxJugadoresEquipo;
     private String colorEquipo;
     private Location spawnEquipo;
 
-    public EquiposManager(String colorEquipo) {
-        this.jugadoresEquipo = new ArrayList<Jugador>();
-        this.colorEquipo = colorEquipo;
-        this.spawnEquipo = spawnEquipo;
+    public Equipo() {
+        this.jugadoresEquipo = new ArrayList<>();
     }
 
     public void setColorEquipo(String colorEquipo) {
@@ -23,29 +22,25 @@ public class EquiposManager {
     public String getColorEquipo() {
         return this.colorEquipo;
     }
-    public boolean contieneJugador(String nombreJugador) {
-        for (int i = 0; i < jugadoresEquipo.size(); i++) {
-            if (jugadoresEquipo.get(i).getJugador().getName().equals(nombreJugador)) {
-                return true;
-            }
-        }
-        return false;
+    public boolean contieneJugador(Jugador jugador) {
+        return jugadoresEquipo.contains(jugador);
     }
     public boolean agregarJugador(Jugador jugador) {
-        if (!contieneJugador(jugador.getJugador().getName())) {
+        if (!contieneJugador(jugador)) {
             jugadoresEquipo.add(jugador);
             return true;
         }
         return false;
     }
     public boolean removerJugador(Jugador jugador) {
-        for (int i = 0; i < jugadoresEquipo.size(); i++) {
-            if (jugadoresEquipo.get(i).getJugador().getName().equals(jugador)) {
-                jugadoresEquipo.remove(jugador);
-                return true;
-            }
+        if (contieneJugador(jugador)) {
+            jugadoresEquipo.remove(jugador);
+            return true;
         }
         return false;
+    }
+    public boolean estaLleno() {
+        return jugadoresEquipo.size() >= getMaxJugadoresEquipo();
     }
     public ArrayList<Jugador> getJugadoresEquipo() {
         return jugadoresEquipo;
@@ -55,6 +50,12 @@ public class EquiposManager {
     }
     public void setSpawnEquipo(Location spawnEquipo) {
         this.spawnEquipo = spawnEquipo;
+    }
+    public int getMaxJugadoresEquipo() {
+        return maxJugadoresEquipo;
+    }
+    public void setMaxJugadoresEquipo(int maxJugadoresEquipo) {
+        this.maxJugadoresEquipo = maxJugadoresEquipo;
     }
     public int getCantidadJugadores() {
         return this.jugadoresEquipo.size();
